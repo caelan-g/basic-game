@@ -59,11 +59,11 @@
 @keyframes obstacle-animation {
   0% {
     /* left: calc(var(--game-margin-left + var(--game-width))); */
-    transform: rotate(0deg);
+    /* transform: rotate(0deg); */
   }
   100% {
     /* left: var(--game-margin-left); */
-    transform: rotate(-520deg);
+    /* transform: rotate(-520deg); */
   }
 }
 #score-count {
