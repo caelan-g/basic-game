@@ -22,10 +22,13 @@ let characterGravity = 2;
 let characterTop = characterBase;
 let characterWidth = parseInt(window.getComputedStyle(character).width);
 let characterHeight = parseInt(window.getComputedStyle(character).height);
+let characterLeft;
 
 let obstacle = document.getElementById("obstacle");
 let obstacleHeight = parseInt(window.getComputedStyle(obstacle).height);
 let obstacleWidth = parseInt(window.getComputedStyle(obstacle).width);
+let obstacleLeft;
+let obstacleTop;
 
 let hitboxCharacter = document.getElementById("hitbox-character");
 let hitboxObstacle = document.getElementById("hitbox-obstacle");
@@ -101,22 +104,33 @@ function runRandom() {
         clearInterval(randomize);
       }
     }, 1000);
+    obstacleMove = setInterval(function () {
+      //console.log(obstacleLeft);
+      //console.log(gameLeft);
+      if (obstacleLeft > gameLeft) {
+        obstacleLeft = obstacleLeft - 1 + "px";
+        obstacle.style.left = obstacleLeft;
+        console.log(obstacleLeft);
+      } else {
+        obstacleLeft = gameLeft + gameWidth;
+      }
+    }, 5);
   }
 }
 
 let check = setInterval(function () {
-  var characterLeft = parseInt(
+  characterLeft = parseInt(
     window.getComputedStyle(character).getPropertyValue("left")
   );
-  var characterTop = parseInt(
+  characterTop = parseInt(
     window.getComputedStyle(character).getPropertyValue("top")
   );
   //console.log(characterLeft, characterTop);
 
-  var obstacleLeft = parseInt(
+  obstacleLeft = parseInt(
     window.getComputedStyle(obstacle).getPropertyValue("left")
   );
-  var obstacleTop = parseInt(
+  obstacleTop = parseInt(
     window.getComputedStyle(obstacle).getPropertyValue("top")
   );
   //console.log(obstacleLeft, obstacleTop);
