@@ -1,0 +1,107 @@
+:root {
+  --dark-grey: rgb(80, 80, 80);
+  --game-margin-top: 100px;
+  --game-margin-left: 500px;
+  --game-height: 200px;
+  --game-width: 500px;
+}
+* {
+  padding: 0px;
+  margin: 0px;
+}
+#game {
+  width: var(--game-width);
+  height: var(--game-height);
+  border: 1px solid var(--dark-grey);
+  margin-left: var(--game-margin-left);
+  margin-top: var(--game-margin-top);
+}
+#character {
+  width: 40px;
+  height: 50px;
+  background-color: rgb(0, 255, 238);
+  position: absolute;
+  top: 150px;
+  left: calc(var(--game-margin-left) + 50px);
+  transition: transform 0.05s ease-in-out;
+}
+.jump {
+  animation: character-jump 500ms linear;
+}
+@keyframes character-jump {
+  0% {
+    top: 150px;
+  }
+  30% {
+    top: 110px;
+  }
+  50% {
+    top: 90px;
+  }
+  70% {
+    top: 110px;
+  }
+  100% {
+    top: 150px;
+  }
+}
+#obstacle {
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  position: absolute;
+  top: calc(var(--game-margin-top) + var(--game-height) - 30px);
+  left: calc(var(--game-margin-left) + var(--game-width) - 30px);
+}
+.obstacle-move {
+  animation: obstacle-animation 1s infinite linear;
+}
+@keyframes obstacle-animation {
+  0% {
+    left: calc(var(--game-margin-left + var(--game-width)));
+    transform: rotate(0deg);
+  }
+  100% {
+    left: var(--game-margin-left);
+    transform: rotate(520deg);
+  }
+}
+#score-count {
+  height: 0px;
+}
+#time-in {
+  position: absolute;
+  text-align: center;
+  left: calc(var(--game-margin-left) + var(--game-width) / 2 - 10px);
+  top: calc(var(--game-margin-top) + var(--game-height) / 2 - 15px);
+  height: 50%;
+  visibility: hidden;
+  font-size: 30px;
+}
+.visible {
+  visibility: visible;
+}
+#hitbox-character {
+  width: 40px;
+  height: 50px;
+  position: absolute;
+  background-color: green;
+  z-index: 1;
+  display: none;
+}
+#hitbox-obstacle {
+  display: none;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  background-color: orange;
+  z-index: 1;
+}
+#jet-particle {
+  width: 40px;
+  height: 50px;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+  background-color: yellow;
+}
