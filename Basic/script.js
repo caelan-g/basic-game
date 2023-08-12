@@ -181,11 +181,6 @@ let check = setInterval(function () {
   jetParticle.style.left = characterLeft - jetpackLeftOffset * 2 + "px";
 
   if (
-    /*characterLeft < obstacleLeft + obstacleWidth &&
-    characterLeft + characterWidth > obstacleLeft &&
-    characterTop < obstacleTop + obstacleHeight &&
-    characterTop + characterHeight > obstacleTop*/
-    /*obstacleLeft < 41 && characterTop > 130*/
     characterLeft < obstacleLeft + obstacleWidth &&
     characterLeft + characterWidth > obstacleLeft &&
     characterTop < obstacleTop + obstacleHeight &&
@@ -218,32 +213,6 @@ async function reload() {
   characterTop = gameTop + gameHeight - characterHeight;
   character.style.top = characterTop + "px";
   reloading = false;
-  /*reloading = true;
-  obstacle.classList.remove("obstacle-move");
-  //obstacle.style.visibility = "hidden";
-  timeIn.style.visibility = "visible";
-  let count = timeCount;
-  timeIn.textContent = count;
-
-  let countdown = setInterval(countdownTimer, 1000);
-  function countdownTimer() {
-    console.log("score 0");
-    count--;
-    score = 0;
-    timeIn.textContent = count;
-    if (count == 0) {
-      obstacleLeft = gameLeft + gameWidth;
-      obstacle.classList.add("obstacle-move");
-      obstacle.style.visibility = "visible";
-      timeIn.style.visibility = "hidden";
-      characterTop = gameTop + gameHeight - characterHeight;
-      character.style.top = characterTop + "px";
-      reloading = false;
-      count = timeCount;
-      clearInterval(countdown);
-      //obstacleMove();
-    }
-  }*/
 }
 
 function countdownTimer(x) {
@@ -266,12 +235,3 @@ function countdownTimer(x) {
     }, 1000);
   });
 }
-
-/*score = 0;
-obstacleLeft = gameLeft + gameWidth;
-obstacle.classList.add("obstacle-move");
-obstacle.style.visibility = "visible";
-timeIn.style.visibility = "hidden";
-characterTop = gameTop + gameHeight - characterHeight;
-character.style.top = characterTop + "px";
-reloading = false;*/
