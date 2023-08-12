@@ -23,6 +23,7 @@ let characterTop = characterBase;
 let characterWidth = parseInt(window.getComputedStyle(character).width);
 let characterHeight = parseInt(window.getComputedStyle(character).height);
 let characterLeft;
+let characterRotate;
 
 let jetpack = document.getElementById("jetpack");
 let jetpackTopOffset = 10;
@@ -41,10 +42,13 @@ let hitboxObstacle = document.getElementById("hitbox-obstacle");
 
 let jetParticle = document.getElementById("jet-particle");
 
+let playButton = document.getElementById("play-button");
+
 let score;
 var scoreCount = document.getElementById("score-count");
 var timeIn = document.getElementById("time-in");
 let reloading = false;
+let play = true;
 let obstacleSpeed;
 let body = document.querySelector("body");
 let down;
@@ -71,6 +75,15 @@ function mouseUp() {
   //console.log("mouseu");
 }
 
+async function pause() {
+  if (play == false) {
+    await countdownTimer();
+    play = true;
+  } else {
+    play = false;
+  }
+}
+
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
@@ -80,6 +93,7 @@ function jump() {
     character.style.top = characterTop - characterJump + "px";
     characterTop = characterTop - characterJump;
     character.style.transform = "rotate(5deg)";
+    characterRotate = 5;
     jetParticle.style.visibility = "visible";
   }
 }
@@ -88,24 +102,24 @@ let jetpackMove = setInterval(function () {
   setTimeout(function () {
     jetpack.style.top = characterTop + jetpackTopOffset + "px";
     jetpack.style.left = characterLeft - jetpackLeftOffset + "px";
-    var characterRotate = parseInt(
-      window.getComputedStyle(character).getPropertyValue("transform")
-    );
-    jetpack.style.transfrom = "rotate(" + characterRotate + "deg)";
-  }, 50);
+    console.log(characterRotate);
+    jetpack.style.transform = "rotate(" + characterRotate + "deg)";
+  }, 100);
 }, 10);
 
 let gravity = setInterval(function () {
-  if (reloading == false) {
+  if (reloading == false && play == true) {
     if (down == true) {
       setTimeout("jump()", 10);
     } else if (characterTop != gameTop + gameHeight - characterHeight) {
       character.style.top = characterTop + characterGravity + "px";
       characterTop = characterTop + characterGravity;
       character.style.transform = "rotate(-5deg)";
+      characterRotate = -5;
       jetParticle.style.visibility = "hidden";
     } else {
       character.style.transform = "rotate(0deg)";
+      characterRotate = 0;
     }
   } else {
     jetParticle.style.visibility = "hidden";
@@ -117,7 +131,7 @@ let difficulty = setInterval(function () {
 }, 100);
 
 let obstacleMove = setInterval(function () {
-  if (reloading == false) {
+  if (reloading == false && play == true) {
     if (obstacleLeft > gameLeft) {
       obstacleLeft = obstacleLeft - obstacleDifficulty; //move towards player zone
       obstacleRotate = obstacleRotate - obstacleDifficulty / 2 - 2;
@@ -185,15 +199,26 @@ let check = setInterval(function () {
 }, 10);
 
 var addScore = setInterval(function () {
-  if (reloading == false) {
+  if (reloading == false && play == true) {
     score++;
     scoreCount.textContent = score;
     difficulty++;
   }
 }, 100);
 
-function reload() {
+async function reload() {
   reloading = true;
+  console.log(reloading);
+  obstacle.classList.remove("obstacle-move");
+  await countdownTimer();
+  score = 0;
+  obstacleLeft = gameLeft + gameWidth;
+  obstacle.classList.add("obstacle-move");
+  obstacle.style.visibility = "visible";
+  characterTop = gameTop + gameHeight - characterHeight;
+  character.style.top = characterTop + "px";
+  reloading = false;
+  /*reloading = true;
   obstacle.classList.remove("obstacle-move");
   //obstacle.style.visibility = "hidden";
   timeIn.style.visibility = "visible";
@@ -218,5 +243,35 @@ function reload() {
       clearInterval(countdown);
       //obstacleMove();
     }
-  }
+  }*/
 }
+
+function countdownTimer(x) {
+  return new Promise((resolve) => {
+    timeIn.style.visibility = "visible";
+    let count = timeCount;
+    console.log(count);
+    timeIn.textContent = count;
+    let countdown = setInterval(function () {
+      count--;
+      timeIn.textContent = count;
+      if (count == 0) {
+        count = timeCount;
+        timeIn.style.visibility = "hidden";
+        clearInterval(countdown);
+        resolve(x);
+        //console.log("resolve");
+        //obstacleMove();
+      }
+    }, 1000);
+  });
+}
+
+/*score = 0;
+obstacleLeft = gameLeft + gameWidth;
+obstacle.classList.add("obstacle-move");
+obstacle.style.visibility = "visible";
+timeIn.style.visibility = "hidden";
+characterTop = gameTop + gameHeight - characterHeight;
+character.style.top = characterTop + "px";
+reloading = false;*/

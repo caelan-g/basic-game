@@ -112,4 +112,13 @@
   position: absolute;
   top: 0px;
   left: 0px;
+  transition: transform 0.05s ease-in-out;
+}
+#play-button {
+  width: 30px;
+  height: 30px;
+  background-color: grey;
+  position: absolute;
+  top: var(--game-margin-top);
+  left: calc(var(--game-margin-left) + var(--game-width) - 29px);
 }
