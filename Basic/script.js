@@ -24,6 +24,10 @@ let characterWidth = parseInt(window.getComputedStyle(character).width);
 let characterHeight = parseInt(window.getComputedStyle(character).height);
 let characterLeft;
 
+let jetpack = document.getElementById("jetpack");
+let jetpackTopOffset = 10;
+let jetpackLeftOffset = 10;
+
 let obstacle = document.getElementById("obstacle");
 let obstacleHeight = parseInt(window.getComputedStyle(obstacle).height);
 let obstacleWidth = parseInt(window.getComputedStyle(obstacle).width);
@@ -79,6 +83,17 @@ function jump() {
     jetParticle.style.visibility = "visible";
   }
 }
+
+let jetpackMove = setInterval(function () {
+  setTimeout(function () {
+    jetpack.style.top = characterTop + jetpackTopOffset + "px";
+    jetpack.style.left = characterLeft - jetpackLeftOffset + "px";
+    var characterRotate = parseInt(
+      window.getComputedStyle(character).getPropertyValue("transform")
+    );
+    jetpack.style.transfrom = "rotate(" + characterRotate + "deg)";
+  }, 50);
+}, 10);
 
 let gravity = setInterval(function () {
   if (reloading == false) {
@@ -148,8 +163,8 @@ let check = setInterval(function () {
   hitboxCharacter.style.top = characterTop + "px";
   hitboxCharacter.style.left = characterLeft + "px";*/
 
-  jetParticle.style.top = characterTop + 50 + "px";
-  jetParticle.style.left = characterLeft + "px";
+  jetParticle.style.top = characterTop + jetpackTopOffset + 30 + "px";
+  jetParticle.style.left = characterLeft - jetpackLeftOffset * 2 + "px";
 
   if (
     /*characterLeft < obstacleLeft + obstacleWidth &&
