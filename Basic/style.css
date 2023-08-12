@@ -122,3 +122,21 @@
   top: var(--game-margin-top);
   left: calc(var(--game-margin-left) + var(--game-width) - 29px);
 }
+#resume-button {
+  z-index: 2;
+  width: 200px;
+  height: 40px;
+  background-color: grey;
+  position: absolute;
+  top: calc(var(--game-margin-top) + var(--game-height) / 2 - 40px / 2);
+  left: calc(var(--game-margin-left) + var(--game-width) / 2 - 200px / 2);
+}
+#blackout {
+  z-index: 1;
+  width: calc(var(--game-width) + 1px);
+  height: calc(var(--game-height) + 1px);
+  background-color: rgba(0, 0, 0, 0.301);
+  position: absolute;
+  top: var(--game-margin-top);
+  left: var(--game-margin-left);
+}

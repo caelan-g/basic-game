@@ -43,6 +43,8 @@ let hitboxObstacle = document.getElementById("hitbox-obstacle");
 let jetParticle = document.getElementById("jet-particle");
 
 let playButton = document.getElementById("play-button");
+let resumeButton = document.getElementById("resume-button");
+let blackout = document.getElementById("blackout");
 
 let score;
 var scoreCount = document.getElementById("score-count");
@@ -63,6 +65,8 @@ timeCount = 3; //in seconds
 characterTop = gameTop + gameHeight - characterHeight;
 character.style.top = characterTop + "px";
 obstacle.style.visibility = "hidden";
+resumeButton.style.visibility = "hidden";
+blackout.style.visibility = "hidden";
 reload();
 
 function mouseDown() {
@@ -77,10 +81,14 @@ function mouseUp() {
 
 async function pause() {
   if (play == false) {
+    resumeButton.style.visibility = "hidden";
+    blackout.style.visibility = "hidden";
     await countdownTimer();
     play = true;
   } else {
     play = false;
+    resumeButton.style.visibility = "visible";
+    blackout.style.visibility = "visible";
   }
 }
 
